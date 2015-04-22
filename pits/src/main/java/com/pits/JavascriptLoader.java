@@ -10,6 +10,7 @@ public class JavascriptLoader {
 
     private static final String TAG = JavascriptLoader.class.getSimpleName();
     private static final String BLANK = "";
+
     private final Context applicationContext;
     private final String javascriptDirectory = "js";
 
@@ -39,13 +40,13 @@ public class JavascriptLoader {
         return javascriptBuffer.toString();
     }
 
-    private String readFileAsString(String filePath) throws IOException {
+    private byte[] readFileAsString(String filePath) throws IOException {
         InputStream inputStream = applicationContext.getAssets().open(javascriptDirectory + filePath);
         int contentSize = inputStream.available();
         byte[] buffer = new byte[contentSize];
         inputStream.read(buffer);
         inputStream.close();
-        return new String(buffer);
+        return buffer;
     }
 
 }
