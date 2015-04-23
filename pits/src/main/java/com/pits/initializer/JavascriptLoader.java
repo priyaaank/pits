@@ -1,4 +1,4 @@
-package com.pits;
+package com.pits.initializer;
 
 import android.content.Context;
 import android.util.Log;
