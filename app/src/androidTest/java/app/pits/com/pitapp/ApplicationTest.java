@@ -1,4 +1,4 @@
-package app.pits.com.pitsapp;
+package app.pits.com.pitapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

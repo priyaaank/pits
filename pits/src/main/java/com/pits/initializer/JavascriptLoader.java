@@ -12,7 +12,7 @@ public class JavascriptLoader {
     private static final String BLANK = "";
 
     private final Context applicationContext;
-    private final String javascriptDirectory = "js";
+    private final String javascriptDirectory = "js/";
 
     public JavascriptLoader(final Context applicationContext) {
         this.applicationContext = applicationContext;

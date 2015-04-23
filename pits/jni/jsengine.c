@@ -14,7 +14,7 @@ JNIEXPORT void JNICALL Java_com_pits_bridge_EngineBridgeInterface_initializeEngi
 
     ctx = duk_create_heap_default();
     if(!ctx) {
-        (*env)->CallObjectMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, "Failed to create a Duktape heap.\n"));
+        (*env)->CallVoidMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, "Failed to create a Duktape heap.\n"));
         exit(1);
     }
 
@@ -24,7 +24,7 @@ JNIEXPORT void JNICALL Java_com_pits_bridge_EngineBridgeInterface_initializeEngi
     if(duk_peval(ctx) != 0) {
         const char* errorMessage;
         errorMessage = "Error: %s\n", duk_safe_to_string(ctx, -1);
-        (*env)->CallObjectMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, errorMessage));
+        (*env)->CallVoidMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, errorMessage));
         duk_destroy_heap(ctx);
         exit(0);
     }
@@ -42,11 +42,11 @@ JNIEXPORT void JNICALL Java_com_pits_bridge_EngineBridgeInterface_callMethod(JNI
     if(duk_pcall(ctx, 0) != 0) {
         const char* errorMessage;
         errorMessage = "Error: %s\n", duk_safe_to_string(ctx, -1);
-        (*env)->CallObjectMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, errorMessage));
+        (*env)->CallVoidMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, errorMessage));
     } else {
         const char* result;
         result = "Result obtained from the engine is ------> %s\n", duk_safe_to_string(ctx, -1);
-        (*env)->CallObjectMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, result));
+        (*env)->CallVoidMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, result));
     }
 
     duk_pop(ctx);
