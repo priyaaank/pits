@@ -37,15 +37,15 @@ JNIEXPORT void JNICALL Java_com_pits_bridge_EngineBridgeInterface_initializeEngi
 JNIEXPORT void JNICALL Java_com_pits_bridge_EngineBridgeInterface_callMethod(JNIEnv *env, jobject thisobject, jstring namespace, jstring methodName, jstring paramsAsJson, jstring callbackMessageName)
 {
     const char *methodToCall = (*env)->GetStringUTFChars(env, methodName, 0);
-    duk_get_prop_string(ctx, -1, methodToCall);
+    duk_get_prop_string(ctx, -1, "processLine");
 
     if(duk_pcall(ctx, 0) != 0) {
         const char* errorMessage;
-        errorMessage = "Error: %s\n", duk_safe_to_string(ctx, -1);
+        errorMessage = duk_safe_to_string(ctx, -1);
         (*env)->CallVoidMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, errorMessage));
     } else {
         const char* result;
-        result = "Result obtained from the engine is ------> %s\n", duk_safe_to_string(ctx, -1);
+        result = duk_safe_to_string(ctx, -1);
         (*env)->CallVoidMethod(env, thisobject, logErrorMethod, (*env)->NewStringUTF(env, result));
     }
 

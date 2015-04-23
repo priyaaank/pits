@@ -12,7 +12,7 @@ public class JavascriptLoader {
     private static final String BLANK = "";
 
     private final Context applicationContext;
-    private final String javascriptDirectory = "js/";
+    private final String javascriptDirectory = "js";
 
     public JavascriptLoader(final Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -40,13 +40,13 @@ public class JavascriptLoader {
         return javascriptBuffer.toString();
     }
 
-    private byte[] readFileAsString(String filePath) throws IOException {
-        InputStream inputStream = applicationContext.getAssets().open(javascriptDirectory + filePath);
+    private String readFileAsString(String filePath) throws IOException {
+        InputStream inputStream = applicationContext.getAssets().open(javascriptDirectory + "/" + filePath);
         int contentSize = inputStream.available();
         byte[] buffer = new byte[contentSize];
         inputStream.read(buffer);
         inputStream.close();
-        return buffer;
+        return new String(buffer);
     }
 
 }
